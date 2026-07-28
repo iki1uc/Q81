@@ -1,19 +1,30 @@
-// RESPO_AXD.tmp (als JS gedacht)
+// RESPO_AXD.tmp (neue ID-Engine)
 import { q81 } from "./q81.js";
+import { NC, ABC_Vektor } from "./vector.js";
 
-export function RESPO(v) {
+export function RESPO_ID(v, standort, A, B, C) {
 
     const q = q81(v);
+    const vec = ABC_Vektor(A, B, C, standort);
 
     return {
-        typ: "RESPO",
-        ursprung: q.qualität,       // Startpunkt
-        richtung: q.status,         // JA = +, NEIN = -
-        länge: q.nenner,            // 1 oder 0
-        vektor: {
-            x: q.qualität,
-            y: q.nenner,
-            z: q.aktiv ? 1 : -1     // Richtung in Tiefe
-        }
+        typ: "RESPO-ID",
+        nc: NC(standort),
+
+        // q81 Ursprung
+        ursprung: q.qualität,
+        richtung: q.status,
+        länge: q.nenner,
+
+        // ABC-Vektor
+        vektor: vec,
+
+        // kosmische Skalierung
+        mond: q.qualität * 0.1,
+        erde: q.qualität * 1.0,
+        sonne: q.qualität * 10.0,
+
+        // finale ID
+        id: `${NC(standort)}-${q.qualität}-${vec.AC.x}-${vec.AC.y}-${vec.AC.z}`
     };
 }
