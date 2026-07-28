@@ -1,30 +1,29 @@
-// RESPO_AXD.tmp (neue ID-Engine)
+// JS/RESPO_AXD.tmp
 import { q81 } from "./q81.js";
 import { NC, ABC_Vektor } from "./vector.js";
+import { CACHE_UPDATE, XI, IX } from "./cache.js";
+import { HDF_PATH } from "./hdf.js";
 
 export function RESPO_ID(v, standort, A, B, C) {
 
     const q = q81(v);
     const vec = ABC_Vektor(A, B, C, standort);
+    const nc = NC(standort);
+
+    CACHE_UPDATE(standort, q, vec);
+    const hdf = HDF_PATH(nc);
 
     return {
         typ: "RESPO-ID",
-        nc: NC(standort),
-
-        // q81 Ursprung
+        nc,
         ursprung: q.qualität,
         richtung: q.status,
         länge: q.nenner,
-
-        // ABC-Vektor
         vektor: vec,
-
-        // kosmische Skalierung
-        mond: q.qualität * 0.1,
-        erde: q.qualität * 1.0,
-        sonne: q.qualität * 10.0,
-
-        // finale ID
-        id: `${NC(standort)}-${q.qualität}-${vec.AC.x}-${vec.AC.y}-${vec.AC.z}`
+        XI,
+        IX,
+        hdf_tmp: hdf.tmp,
+        cache: hdf.cache,
+        id: `${nc}-${q.qualität}-${vec.AC.x}-${vec.AC.y}-${vec.AC.z}`
     };
 }
