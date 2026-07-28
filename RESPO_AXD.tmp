@@ -1,2 +1,19 @@
-{ "arg.level": 3, "type": "meta", "value": "Ω" }
+// RESPO_AXD.tmp (als JS gedacht)
+import { q81 } from "./q81.js";
 
+export function RESPO(v) {
+
+    const q = q81(v);
+
+    return {
+        typ: "RESPO",
+        ursprung: q.qualität,       // Startpunkt
+        richtung: q.status,         // JA = +, NEIN = -
+        länge: q.nenner,            // 1 oder 0
+        vektor: {
+            x: q.qualität,
+            y: q.nenner,
+            z: q.aktiv ? 1 : -1     // Richtung in Tiefe
+        }
+    };
+}
