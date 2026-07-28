@@ -1,0 +1,25 @@
+// JS/ID.viewer.js
+export function ID_VIEW(data) {
+    return `
+ID-VIEWER
+---------
+NC: ${data.nc}
+ID: ${data.id}
+
+URS: ${data.ursprung}
+RICHT: ${data.richtung}
+LÄNGE: ${data.länge}
+
+ABC-Vektor:
+  AB: ${JSON.stringify(data.vektor.AB)}
+  BC: ${JSON.stringify(data.vektor.BC)}
+  AC: ${JSON.stringify(data.vektor.AC)}
+
+CACHE:
+  XI: ${JSON.stringify(data.XI)}
+  IX: ${JSON.stringify(data.IX)}
+
+HDF/tmp: ${data.hdf_tmp}
+9Xcache: ${data.cache}
+`;
+}
