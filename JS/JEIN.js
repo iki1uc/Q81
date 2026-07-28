@@ -1,5 +1,5 @@
 // JEIN.js
-export function JEIN.js(v) {
+export function JEIN(v) {
 
     const erfüllt =
         v !== null &&
@@ -15,4 +15,3 @@ export function JEIN.js(v) {
         kleinster_nenner: erfüllt ? 1 : 0
     };
 }
-
