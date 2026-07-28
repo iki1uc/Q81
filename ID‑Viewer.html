@@ -1,25 +1,36 @@
 // JS/ID.viewer.js
 export function ID_VIEW(data) {
     return `
-ID-VIEWER
----------
-NC: ${data.nc}
-ID: ${data.id}
+===========================
+      Q81 · RESPO · ID
+===========================
 
-URS: ${data.ursprung}
-RICHT: ${data.richtung}
-LÄNGE: ${data.länge}
+[NC-KÜRZEL]
+${data.nc}
 
-ABC-Vektor:
-  AB: ${JSON.stringify(data.vektor.AB)}
-  BC: ${JSON.stringify(data.vektor.BC)}
-  AC: ${JSON.stringify(data.vektor.AC)}
+[ID]
+${data.id}
 
-CACHE:
-  XI: ${JSON.stringify(data.XI)}
-  IX: ${JSON.stringify(data.IX)}
+[Q81 · Qualität]
+Ursprung: ${data.ursprung}
+Richtung: ${data.richtung}
+Länge:    ${data.länge}
 
-HDF/tmp: ${data.hdf_tmp}
-9Xcache: ${data.cache}
+[ABC-Vektor]
+AB: ${JSON.stringify(data.vektor.AB)}
+BC: ${JSON.stringify(data.vektor.BC)}
+AC: ${JSON.stringify(data.vektor.AC)}
+
+[CACHE · XI/IX]
+XI (Input):  ${JSON.stringify(data.XI)}
+IX (Output): ${JSON.stringify(data.IX)}
+
+[SPEICHERPFAD]
+HDF/tmp:   ${data.hdf_tmp}
+9Xcache:   ${data.cache}
+
+[DEBUG]
+Typ: ${data.typ}
+Standort: ${data.nc}
 `;
 }
