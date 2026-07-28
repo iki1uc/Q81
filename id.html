@@ -1,15 +1,34 @@
-<script src="IDkoop.js"></script>
-<script src="IDneutral.js"></script>
-<script src="IDpook.js"></script>
+// RESPO_AXD.tmp – neue ID-Engine
+import { q81 } from "./q81.js";
+import { NC, ABC_Vektor } from "./vector.js";
+import { XI, IX } from "./cache.js";
 
-<script>
-function showID(mode) {
-    const map = {
-        koop: ID_KOOP,
-        neutral: ID_NEUTRAL,
-        pook: ID_POOK
+export function RESPO_ID(v, standort, A, B, C) {
+
+    const q = q81(v);
+    const vec = ABC_Vektor(A, B, C, standort);
+
+    // Cache füllen
+    XI[standort] = q.qualität;
+    IX[standort] = vec.AC;
+
+    return {
+        typ: "RESPO-ID",
+        nc: NC(standort),
+
+        // q81 Ursprung
+        ursprung: q.qualität,
+        richtung: q.status,
+        länge: q.nenner,
+
+        // ABC-Vektor
+        vektor: vec,
+
+        // Speicherpfade
+        hdf_tmp: `/HDF/tmp/${NC(standort)}`,
+        cache: `d:/tmp/9Xcache/${NC(standort)}`,
+
+        // finale ID
+        id: `${NC(standort)}-${q.qualität}-${vec.AC.x}-${vec.AC.y}-${vec.AC.z}`
     };
-    const id = map[mode];
-    document.getElementById("id-info").innerText = id.info();
 }
-</script>
