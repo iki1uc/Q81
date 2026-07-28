@@ -22,6 +22,7 @@ import { REGULATION_PIPE } from "./JS/regulation.pipeline.js";
 import { REGULATION_SWITCH } from "./JS/regulation.switch.js";
 import { Q81_FINAL } from "./JS/Q81.final.js";
 import { POPUP } from "./JS/popup.js";
+import { QMOVE_POPUP } from "./JS/qmove.popup.js";
 
 const Mond  = { x:1, y:2, z:0 };
 const Erde  = { x:4, y:3, z:1 };
@@ -30,34 +31,23 @@ const Sonne = { x:10, y:8, z:5 };
 const v = 3;
 const standort = "HH";
 
-/* -------------------------
-   1. regulation.js testen
-------------------------- */
 const reg = REGULATION(v, standort, Mond, Erde, Sonne);
 document.body.innerHTML += "<pre>REGULATION:\n" +
     JSON.stringify(reg, null, 2) + "</pre>";
 
-/* -------------------------
-   2. TP‑Switch live sehen
-------------------------- */
 const tp = REGULATION_SWITCH(v, standort, Mond, Erde, Sonne);
 document.body.innerHTML += "<pre>TP‑SWITCH:\n" +
     JSON.stringify(tp, null, 2) + "</pre>";
 
-/* -------------------------
-   3. Q81_FINAL erweitern
-------------------------- */
 const q81f = Q81_FINAL(v, standort, Mond, Erde, Sonne);
 document.body.innerHTML += "<pre>Q81_FINAL:\n" +
     JSON.stringify(q81f, null, 2) + "</pre>";
 
-/* -------------------------
-   4. Popup‑OS verbinden
-------------------------- */
 document.body.innerHTML += `
 <button onclick='POPUP("REGULATION", JSON.stringify(${JSON.stringify(reg)}, null, 2))'>REGULATION Popup</button>
 <button onclick='POPUP("TP‑SWITCH", JSON.stringify(${JSON.stringify(tp)}, null, 2))'>TP‑SWITCH Popup</button>
 <button onclick='POPUP("Q81_FINAL", JSON.stringify(${JSON.stringify(q81f)}, null, 2))'>Q81_FINAL Popup</button>
+<button onclick='QMOVE_POPUP()'>Q‑MOVE Popup</button>
 `;
 
 </script>
