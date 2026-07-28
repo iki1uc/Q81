@@ -1,84 +1,40 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>Q81 · RESPO · AXD · ID</title>
-
-    <style>
-        body {
-            background:#000;
-            color:#eee;
-            font-family:Consolas, monospace;
-            padding:20px;
-        }
-        h1 { color:#6cf; }
-        pre {
-            background:#111;
-            padding:15px;
-            border:1px solid #333;
-            margin:20px 0;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Q81 · RESPO · ID · Viewer</title>
+<style>
+body { background:#000; color:#eee; font-family:Consolas; padding:20px; }
+pre { background:#111; padding:15px; border:1px solid #333; margin:20px 0; }
+h1 { color:#6cf; }
+</style>
 </head>
 
 <body>
-
-<h1>Q81 · RESPO · AXD · ID</h1>
+<h1>Q81 · RESPO · ID · Viewer</h1>
 
 <script type="module">
 
-    import { q81 } from "./JS/q81.js";
-    import { JEIN } from "./JS/JEIN.js";
-    import { NC, ABC_Vektor } from "./JS/vector.js";
-    import { RESPO_ID } from "./JS/RESPO_AXD.tmp";
-    import { XI, IX } from "./JS/cache.js";
+import { RESPO_ID } from "./JS/RESPO_AXD.tmp";
+import { ID_VIEW } from "./JS/ID.viewer.js";
+import { ID_ENGINE } from "./JS/ID.engine.js";
 
-    function start() {
+const Mond  = { x:1, y:2, z:0 };
+const Erde  = { x:4, y:3, z:1 };
+const Sonne = { x:10, y:8, z:5 };
 
-        // Beispielwerte
-        const wert = 3;
-        const standort = "HH";
+const respo = RESPO_ID(3, "HH", Mond, Erde, Sonne);
 
-        // ABC-Vektor Punkte
-        const Mond  = { x: 1,  y: 2,  z: 0 };
-        const Erde  = { x: 4,  y: 3,  z: 1 };
-        const Sonne = { x: 10, y: 8,  z: 5 };
+document.body.innerHTML += "<pre>" + ID_VIEW(respo) + "</pre>";
 
-        // JEIN
-        const jein = JEIN(wert);
-        document.body.innerHTML += "<pre>JEIN:\n" +
-            JSON.stringify(jein, null, 2) +
-            "</pre>";
+document.body.innerHTML += "<pre>KOOP-ID:\n" +
+    ID_ENGINE("koop", respo) + "</pre>";
 
-        // q81
-        const q = q81(wert);
-        document.body.innerHTML += "<pre>q81:\n" +
-            JSON.stringify(q, null, 2) +
-            "</pre>";
+document.body.innerHTML += "<pre>NEUTRAL-ID:\n" +
+    ID_ENGINE("neutral", respo) + "</pre>";
 
-        // ABC-Vektor
-        const abc = ABC_Vektor(Mond, Erde, Sonne, standort);
-        document.body.innerHTML += "<pre>ABC‑Vektor:\n" +
-            JSON.stringify(abc, null, 2) +
-            "</pre>";
-
-        // RESPO-ID
-        const id = RESPO_ID(wert, standort, Mond, Erde, Sonne);
-        document.body.innerHTML += "<pre>RESPO‑ID:\n" +
-            JSON.stringify(id, null, 2) +
-            "</pre>";
-
-        // Cache
-        document.body.innerHTML += "<pre>XI‑Cache:\n" +
-            JSON.stringify(XI, null, 2) +
-            "</pre>";
-
-        document.body.innerHTML += "<pre>IX‑Cache:\n" +
-            JSON.stringify(IX, null, 2) +
-            "</pre>";
-    }
-
-    start();
+document.body.innerHTML += "<pre>POOK-ID:\n" +
+    ID_ENGINE("pook", respo) + "</pre>";
 
 </script>
 
