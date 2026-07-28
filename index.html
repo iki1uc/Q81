@@ -1,18 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-    <title>ATOM – 81.tmp System</title>
+    <meta charset="UTF-8">
+    <title>RESPO · 81.tmp · AXD</title>
+
+    <style>
+        body {
+            background:#000;
+            color:#eee;
+            font-family:Consolas, monospace;
+            padding:20px;
+        }
+        h1 { color:#6cf; }
+        pre {
+            background:#111;
+            padding:15px;
+            border:1px solid #333;
+            margin:20px 0;
+        }
+    </style>
 </head>
+
 <body>
 
-<h1>ATOM – 3×81 System</h1>
-
-<div id="rings"></div>
+<h1>RESPO · 81.tmp · AXD</h1>
 
 <script type="module">
-import { AtomRing } from "./JS/AtomRing.js";
 
-document.getElementById("rings").innerHTML = AtomRing();
+    import { _81tmp_matrix } from "./JS/81tmp.matrix.js";
+    import { Z_Axis } from "./JS/Z.axis.js";
+
+    async function start() {
+
+        const atom = {
+            Elektron: 3,
+            Proton: 2,
+            Neutron: 1,
+            Orbit: 4
+        };
+
+        document.body.innerHTML += "<pre>Z‑Axis:\n" +
+            JSON.stringify(Z_Axis(atom), null, 2) +
+            "</pre>";
+
+        const matrix = await _81tmp_matrix();
+        document.body.innerHTML += "<pre>81tmp‑Matrix:\n" +
+            JSON.stringify(matrix, null, 2) +
+            "</pre>";
+    }
+
+    start();
+
 </script>
 
 </body>
