@@ -2,39 +2,63 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Q81 · ID-Viewer</title>
+<title>Q81 · Regulation · TP · Popup‑OS</title>
+
 <style>
 body { background:#000; color:#eee; font-family:Consolas; padding:20px; }
 pre { background:#111; padding:15px; border:1px solid #333; margin:20px 0; }
+button { padding:10px; margin:5px; background:#222; color:#6cf; border:1px solid #444; }
 h1 { color:#6cf; }
 </style>
 </head>
 
 <body>
-<h1>Q81 · ID‑Viewer.html · Viewer</h1>
+<h1>Q81 · Regulation · TP‑Switch · Popup‑OS</h1>
 
 <script type="module">
 
-import { RESPO_ID } from "./JS/RESPO_AXD.tmp";
-import { ID_VIEW } from "./JS/ID.viewer.js";
-import { ID_ENGINE } from "./JS/ID.engine.js";
+import { REGULATION } from "./JS/regulation.js";
+import { REGULATION_PIPE } from "./JS/regulation.pipeline.js";
+import { REGULATION_SWITCH } from "./JS/regulation.switch.js";
+import { Q81_FINAL } from "./JS/Q81.final.js";
+import { POPUP } from "./JS/popup.js";
 
 const Mond  = { x:1, y:2, z:0 };
 const Erde  = { x:4, y:3, z:1 };
 const Sonne = { x:10, y:8, z:5 };
 
-const respo = RESPO_ID(3, "HH", Mond, Erde, Sonne);
+const v = 3;
+const standort = "HH";
 
-document.body.innerHTML += "<pre>" + ID_VIEW(respo) + "</pre>";
+/* -------------------------
+   1. regulation.js testen
+------------------------- */
+const reg = REGULATION(v, standort, Mond, Erde, Sonne);
+document.body.innerHTML += "<pre>REGULATION:\n" +
+    JSON.stringify(reg, null, 2) + "</pre>";
 
-document.body.innerHTML += "<pre>KOOP-ID:\n" +
-    ID_ENGINE("koop", respo) + "</pre>";
+/* -------------------------
+   2. TP‑Switch live sehen
+------------------------- */
+const tp = REGULATION_SWITCH(v, standort, Mond, Erde, Sonne);
+document.body.innerHTML += "<pre>TP‑SWITCH:\n" +
+    JSON.stringify(tp, null, 2) + "</pre>";
 
-document.body.innerHTML += "<pre>NEUTRAL-ID:\n" +
-    ID_ENGINE("neutral", respo) + "</pre>";
+/* -------------------------
+   3. Q81_FINAL erweitern
+------------------------- */
+const q81f = Q81_FINAL(v, standort, Mond, Erde, Sonne);
+document.body.innerHTML += "<pre>Q81_FINAL:\n" +
+    JSON.stringify(q81f, null, 2) + "</pre>";
 
-document.body.innerHTML += "<pre>POOK-ID:\n" +
-    ID_ENGINE("pook", respo) + "</pre>";
+/* -------------------------
+   4. Popup‑OS verbinden
+------------------------- */
+document.body.innerHTML += `
+<button onclick='POPUP("REGULATION", JSON.stringify(${JSON.stringify(reg)}, null, 2))'>REGULATION Popup</button>
+<button onclick='POPUP("TP‑SWITCH", JSON.stringify(${JSON.stringify(tp)}, null, 2))'>TP‑SWITCH Popup</button>
+<button onclick='POPUP("Q81_FINAL", JSON.stringify(${JSON.stringify(q81f)}, null, 2))'>Q81_FINAL Popup</button>
+`;
 
 </script>
 
