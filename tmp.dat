@@ -1,29 +1,34 @@
-// JS/RESPO_AXD.tmp
-import { q81 } from "./q81.js";
-import { NC, ABC_Vektor } from "./vector.js";
-import { CACHE_UPDATE, XI, IX } from "./cache.js";
-import { HDF_PATH } from "./hdf.js";
+// tmp.dat – Orbit + Vektor-Basis für 81.tmp
 
-export function RESPO_ID(v, standort, A, B, C) {
+export function OrbitLink(atom) {
+    return {
+        Elektron: atom.Elektron ?? 0,
+        Proton: atom.Proton ?? 0,
+        Neutron: atom.Neutron ?? 0,
+        Orbit: atom.Orbit ?? 0,
+        text: `E:${atom.Elektron} P:${atom.Proton} N:${atom.Neutron} O:${atom.Orbit}`
+    };
+}
 
-    const q = q81(v);
-    const vec = ABC_Vektor(A, B, C, standort);
-    const nc = NC(standort);
-
-    CACHE_UPDATE(standort, q, vec);
-    const hdf = HDF_PATH(nc);
+export function TMP_Vektor(atom) {
+    const o = OrbitLink(atom);
 
     return {
-        typ: "RESPO-ID",
-        nc,
-        ursprung: q.qualität,
-        richtung: q.status,
-        länge: q.nenner,
-        vektor: vec,
-        XI,
-        IX,
-        hdf_tmp: hdf.tmp,
-        cache: hdf.cache,
-        id: `${nc}-${q.qualität}-${vec.AC.x}-${vec.AC.y}-${vec.AC.z}`
+        orbit: o,
+        sum: o.Elektron + o.Proton + o.Neutron + o.Orbit,
+        avg: (o.Elektron + o.Proton + o.Neutron + o.Orbit) / 4,
+        id: `TMP-${o.Elektron}-${o.Proton}-${o.Neutron}-${o.Orbit}`
+    };
+}
+
+export function TMP81(atom) {
+    const v = TMP_Vektor(atom);
+
+    return {
+        typ: "TMP-81",
+        orbit: v.orbit,
+        summe: v.sum,
+        durchschnitt: v.avg,
+        id: v.id
     };
 }
