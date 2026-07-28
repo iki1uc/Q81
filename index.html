@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>RESPO · 81.tmp · AXD</title>
+    <title>Q81 · RESPO · AXD · ID</title>
 
     <style>
         body {
@@ -23,29 +23,58 @@
 
 <body>
 
-<h1>RESPO · 81.tmp · AXD</h1>
+<h1>Q81 · RESPO · AXD · ID</h1>
 
 <script type="module">
 
-    import { _81tmp_matrix } from "./JS/81tmp.matrix.js";
-    import { Z_Axis } from "./JS/Z.axis.js";
+    import { q81 } from "./JS/q81.js";
+    import { JEIN } from "./JS/JEIN.js";
+    import { NC, ABC_Vektor } from "./JS/vector.js";
+    import { RESPO_ID } from "./JS/RESPO_AXD.tmp";
+    import { XI, IX } from "./JS/cache.js";
 
-    async function start() {
+    function start() {
 
-        const atom = {
-            Elektron: 3,
-            Proton: 2,
-            Neutron: 1,
-            Orbit: 4
-        };
+        // Beispielwerte
+        const wert = 3;
+        const standort = "HH";
 
-        document.body.innerHTML += "<pre>Z‑Axis:\n" +
-            JSON.stringify(Z_Axis(atom), null, 2) +
+        // ABC-Vektor Punkte
+        const Mond  = { x: 1,  y: 2,  z: 0 };
+        const Erde  = { x: 4,  y: 3,  z: 1 };
+        const Sonne = { x: 10, y: 8,  z: 5 };
+
+        // JEIN
+        const jein = JEIN(wert);
+        document.body.innerHTML += "<pre>JEIN:\n" +
+            JSON.stringify(jein, null, 2) +
             "</pre>";
 
-        const matrix = await _81tmp_matrix();
-        document.body.innerHTML += "<pre>81tmp‑Matrix:\n" +
-            JSON.stringify(matrix, null, 2) +
+        // q81
+        const q = q81(wert);
+        document.body.innerHTML += "<pre>q81:\n" +
+            JSON.stringify(q, null, 2) +
+            "</pre>";
+
+        // ABC-Vektor
+        const abc = ABC_Vektor(Mond, Erde, Sonne, standort);
+        document.body.innerHTML += "<pre>ABC‑Vektor:\n" +
+            JSON.stringify(abc, null, 2) +
+            "</pre>";
+
+        // RESPO-ID
+        const id = RESPO_ID(wert, standort, Mond, Erde, Sonne);
+        document.body.innerHTML += "<pre>RESPO‑ID:\n" +
+            JSON.stringify(id, null, 2) +
+            "</pre>";
+
+        // Cache
+        document.body.innerHTML += "<pre>XI‑Cache:\n" +
+            JSON.stringify(XI, null, 2) +
+            "</pre>";
+
+        document.body.innerHTML += "<pre>IX‑Cache:\n" +
+            JSON.stringify(IX, null, 2) +
             "</pre>";
     }
 
